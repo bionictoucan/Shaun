@@ -45,7 +45,7 @@ class SeeingAperture:
         """
         This class method fills the aperture using the seeing model.
         """
-        x_range = np.linsapce(-self.diameter/2, self.diameter/2, num=int(self.diameter))
+        x_range = np.linspace(-self.diameter/2, self.diameter/2, num=int(self.diameter))
         y_range = np.linspace(-self.diameter/2, self.diameter/2, num=int(self.diameter))
         mg = np.meshgrid(x_range, y_range)
         self.fov = np.exp(-0.5 * self.structure_function(mg) / self.structure_function(mg).sum())
