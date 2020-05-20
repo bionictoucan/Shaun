@@ -25,7 +25,7 @@ class SeeingAperture:
 
         self.resolution = (0.98 * self.wavel / self.r_0) * 206265 #this calculates the angular resolution of the effective aperture in arcseconds
         self.diameter = int(self.resolution / self.px_scale) #this calculates the number of detector pixels the point-spread function takes up
-        self.fov = np.zeros(int(self.diameter), int(self.diameter)) #generates a blank point-spread function sized array to be filled with the seeing model values
+        self.fov = np.zeros((int(self.diameter), int(self.diameter))) #generates a blank point-spread function sized array to be filled with the seeing model values
 
         return self
 
