@@ -65,7 +65,7 @@ def gaussian_noise(img_shape):
         The shape of the image to generate the random Gaussian noise for.
     """
 
-    gd = np.random.normal(scale=np.sqrt(2)/2, size=(*img_shape,2)).view(complex128)
+    gd = np.random.normal(scale=np.sqrt(2)/2, size=(*img_shape,2)).view(np.complex128)
     return np.absolute(sf.ifft2(gd)).squeeze()/np.absolute(sf.ifft2(gd)).squeeze().sum()
 
 def synth_seeing(img, aper, gn):
