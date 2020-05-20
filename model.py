@@ -8,7 +8,7 @@ class SeeingAperture:
     This is the class that generates the effective aperture for a given Fried parameter and can also populate it using the model assuming that the Earth's atmosphere can be modelled as a medium with smoothly varying turbulence.
     """
 
-    def __init_(self, wavel, r_0, px_scale, air=False):
+    def __init__(self, wavel, r_0, px_scale, air=False):
         if air:
             self.wavel = wavel
         else:
