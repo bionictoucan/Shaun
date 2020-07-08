@@ -55,7 +55,7 @@ class SeeingAperture:
 
         return self
 
-def gaussian_noise(img_shape):
+def gaussian_noise(img_shape, diameter):
     """
     This function will generate the Gaussian noise in image space where every pixel in the image will have a different realisation of Gaussian noise. This can be hypothetically done for every separate set of observations too since turbulence is random.
 
@@ -63,10 +63,33 @@ def gaussian_noise(img_shape):
     ----------
     img_shape : list or tuple
         The shape of the image to generate the random Gaussian noise for.
+    diameter : int
+        The diameter of the seeing aperture.
+
+    Returns
+    -------
+    gn : numpy.ndarray
+        The Gaussian noise.
     """
 
-    gd = np.random.normal(scale=np.sqrt(2)/2, size=(*img_shape,2)).view(np.complex128)
-    return np.absolute(sf.ifft2(gd)).squeeze()/np.absolute(sf.ifft2(gd)).squeeze().sum()
+    N = img_shape[0] // diameter
+    M = img_shape[1] // diameter
+
+    if N*diameter != img_shape[0] and M*diameter != img_shape[1]:
+        gd = np.random.normal(scale=1, size=(N+1, M+1))
+    elif N*diameter != img_shape[0] and M*diameter == img_shape[1]:
+        gd = np.random.normal(scale=1, size=(N+1,M))
+    elif N*diameter == img_shape[0] and M*diameter != img_shape[1]:
+        gd = np.random.normal(scale=1, size=(N,M+1))
+    else:
+        gd = np.random.normal(scale=1, size=(N,M))
+
+    gn = np.zeros(img_shape, dtype=np.float32)
+    for j in range(gd.shape[0]):
+        for i in range(gd.shape[1]):
+            gn[j*diameter:(j+1)*diameter,i*diameter:(i+1)*diameter] = gd[j,i]
+
+    return gn
 
 def synth_seeing(img, aper, gn):
     """
