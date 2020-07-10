@@ -297,3 +297,78 @@ def add_segmentc(segments_1, segments_2):
     '''
 
     return np.append(segments_1, segments_2, axis=0)
+
+def mosaic(segments, img_shape, n):
+    '''
+    A processing function to mosaic the segments back together.
+    Parameters
+    ----------
+    segments : numpy.ndarray
+        A numpy array of the segments of the image.
+    img_shape : tuple
+        The shape of the original image.
+    n : int
+        The dimension of the segments.
+    Returns
+    -------
+    mosaic_img : numpy.ndarray
+        The reconstructed image.
+    '''
+
+    N = img_shape[0] // n
+    M = img_shape[1] // n
+    if N*n != img_shape[0] and M*n != img_shape[1]:
+        segments = np.reshape(segments, newshape=(N+1, M+1, *segments.shape[-2:]))
+    elif N*n != img_shape[0] and M*n == img_shape[1]:
+        segments = np.reshape(segments, newshape=(N+1, M, *segments.shape[-2:]))
+    elif N*n == img_shape[0] and M*n != img_shape[1]:
+        segments = np.reshape(segments, newshape=(N, M+1, *segments.shape[-2:]))
+    else:
+        segments = np.reshape(segments, newshape=(N, M, segments.shape[-2:]))
+
+    mosaic_img = np.zeros(img_shape, dtype=np.float32)
+    y_range = range(segments.shape[0])
+    x_range = range(segments.shape[1])
+    y_overlap = img_shape[0] - N*n
+    x_overlap = img_shape[1] - M*n
+
+
+    for j in y_range:
+        for i in x_range:
+            if i != x_range[-1] and j != y_range[-1]:
+                mosaic_img[j*n:(j+1)*n,i*n:(i+1)*n] = segments[j,i]
+            elif i == x_range[-1] and j != y_range[-1]:
+                mosaic_img[j*n:(j+1)*n,-x_overlap:] = segments[j,i,:,-x_overlap:]
+            elif i != x_range[-1] and j == y_range[-1]:
+                mosaic_img[-y_overlap:,i*n:(i+1)*n] = segments[j,i,-y_overlap:]
+            elif i == x_range[-1] and j == y_range[-1]:
+                mosaic_img[-y_overlap:,-x_overlap:] = segments[j,i,-y_overlap:,-x_overlap:]
+            else:
+                raise IndexError("These indices are out of the bounds of the image. Check your ranges!")
+            
+    return mosaic_img
+
+def mosaic_cube(segments, img_shape, n=64):
+    '''
+    A function to mosaic a segment list into an image cube.
+    Parameters
+    ----------
+    segments : numpy.ndarray
+        The segments to be mosaiced back into images.
+    img_shape : tuple
+        The dimensions of the images.
+    n : int
+        The dimensions of the segments. Default is 64 e.g. 64 x 64.
+    Returns
+    -------
+    m_cube : numpy.ndarray
+        The cube of mosaiced images.
+    '''
+
+    m_cube = np.zeros((segments.shape[1], *img_shape), dtype=np.float32)
+    segments = np.swapaxes(segments, 0, 1) #swap the number of segments and wavelength channels back to make it easier to mosaic along the wavelength axis
+
+    for j, img in enumerate(segments):
+        m_cube[j] = mosaic(img, img_shape, n=n)
+
+    return m_cube
