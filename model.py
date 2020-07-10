@@ -89,7 +89,7 @@ def gaussian_noise(img_shape, diameter):
         for i in range(gd.shape[1]):
             gn[j*diameter:(j+1)*diameter,i*diameter:(i+1)*diameter] = gd[j,i]
 
-    return gn
+    return gn / gn.sum()
 
 def synth_seeing(img, aper, gn):
     """
