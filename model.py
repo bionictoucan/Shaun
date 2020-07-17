@@ -3,6 +3,7 @@ from scipy.signal import convolve2d
 import scipy.fftpack as sf
 from specutils.utils.wcs_utils import vac_to_air
 from tqdm import tqdm
+from scipy.ndimage import rotate
 
 class SeeingAperture:
     """
