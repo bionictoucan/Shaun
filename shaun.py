@@ -1,32 +1,44 @@
 from torch import tanh
 import torch.nn as nn
-from crisPy2.neural_network import ConvBlock, ResBlock
+from crisPy2.neural_network import ConvBlock, ConvTransBlock, ResBlock
 
 class Shaun(nn.Module):
-    def __init__(in_channels, out_channels, nef):
+    """
+    This is the base class for the neural network model for correcting for seeing.
+
+    Parameters
+    ----------
+    in_channels : int
+        The number of channels that the images have.
+    out_channels : int
+        The number of channels that the output images have.
+    nef : int
+        The base number of feature mapes to use for the first convolutional layer.
+    """
+    def __init__(self, in_channels, out_channels, nef):
         super(Shaun, self).__init__()
 
-        self.C01 = ConvBlock(in_channels, nef, kernel=7)
+        self.C01 = ConvBlock(in_channels, nef, kernel=7, normal="instance")
 
-        self.C11 = ConvBlock(nef, 2*nef, stride=2)
+        self.C11 = ConvBlock(nef, 2*nef, stride=2, normal="instance")
 
-        self.C21 = ConvBlock(2*nef, 4*nef, stride=2)
+        self.C21 = ConvBlock(2*nef, 4*nef, stride=2, normal="instance")
 
-        self.R1 = ResBlock(4*nef, 4*nef)
-        self.R2 = ResBlock(4*nef, 4*nef)
-        self.R3 = ResBlock(4*nef, 4*nef)
-        self.R4 = ResBlock(4*nef, 4*nef)
-        self.R5 = ResBlock(4*nef, 4*nef)
-        self.R6 = ResBlock(4*nef, 4*nef)
-        self.R7 = ResBlock(4*nef, 4*nef)
-        self.R8 = ResBlock(4*nef, 4*nef)
-        self.R9 = ResBlock(4*nef, 4*nef)
+        self.R1 = ResBlock(4*nef, 4*nef, normal="instance")
+        self.R2 = ResBlock(4*nef, 4*nef, normal="instance")
+        self.R3 = ResBlock(4*nef, 4*nef, normal="instance")
+        self.R4 = ResBlock(4*nef, 4*nef, normal="instance")
+        self.R5 = ResBlock(4*nef, 4*nef, normal="instance")
+        self.R6 = ResBlock(4*nef, 4*nef, normal="instance")
+        self.R7 = ResBlock(4*nef, 4*nef, normal="instance")
+        self.R8 = ResBlock(4*nef, 4*nef, normal="instance")
+        self.R9 = ResBlock(4*nef, 4*nef, normal="instance")
 
-        self.C31 = ConvBlock(4*nef, 2*nef, upsample=True)
+        self.C31 = ConvTransBlock(4*nef, 2*nef, stride=2, normal="instance")
 
-        self.C41 = ConvBlock(2*nef, nef, upsample=True)
+        self.C41 = ConvTransBlock(2*nef, nef, stride=2, normal="instance")
 
-        self.C51 = ConvBlock(nef, out_channels, kernel=7)
+        self.C51 = ConvBlock(nef, out_channels, kernel=7, normal="instance")
 
     def forward(self, inp):
         C01 = self.C01(inp)

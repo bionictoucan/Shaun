@@ -37,10 +37,10 @@ class PerceptualLoss:
             The pretrained network loaded with the weights up to a certain cutoff layer.
         '''
         sys.path.append(self.slic)
-        from model import Solar_Classifier
+        from model import SolarClassifier
 
         conv_layer = layer
-        cnn = Solar_Classifier().to(self.device)
+        cnn = SolarClassifier().to(self.device)
         cnn.load_state_dict(torch.load(self.model,map_location=self.device))
         cnn = nn.Sequential(cnn.layer1,cnn.layer2,cnn.max_pool,cnn.layer3,cnn.layer4,cnn.max_pool,cnn.layer5,cnn.layer6,cnn.max_pool,cnn.layer7,cnn.layer8,cnn.max_pool,cnn.layer8,cnn.layer8,cnn.max_pool)
         model = nn.Sequential().to(self.device)
@@ -69,8 +69,6 @@ class PerceptualLoss:
             The perceptual loss between the two images.
         '''
 
-        fake_im = fake_im.reshape(fake_im.size(0)*fake_im.size(1),1,128,128)
-        real_im = real_im.reshape(real_im.size(0)*real_im.size(1),1,128,128)
         f_fake = self.content.forward(fake_im)
         f_real = self.content.forward(real_im)
         f_real_no_grad = f_real.detach()
