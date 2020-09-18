@@ -63,3 +63,22 @@ class Corrector:
                     out[:,j] = self.model(im).squeeze().cpu().numpy()
 
                 return mosaic_cube(out, img_shape, n=256)
+
+class SpeedyCorrector(Corrector):
+    """
+    This class is to do the same corrections but using the torchscript model. This is ~4x faster but limits the batch size to 16.
+
+    Parameters
+    ----------
+    model_path : str
+        The path to the torchscript model.
+    error : float
+        The error to apply to the estimates.
+    """
+
+    def __init__(self, model_path, error):
+        self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+        self.model = torch.jit.load(model_path).to(self.device)
+        self.error = error
+
+        self.model.eval()
