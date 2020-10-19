@@ -1,3 +1,5 @@
 tests/
 paper/
 .DS_Store
+*.pth
+*.pt

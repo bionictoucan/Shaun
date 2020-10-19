@@ -36,7 +36,7 @@ class SeeingApertureMTF:
         self.pxm = np.linspace(1.75, 880, int(880/1.75)+1) # 1.75 is the size of one pixel in metres and 880 is the size of 840 pixels in metres and the int(880/1.75)+1 is the number of pixels in the field-of-view of 840 pixels, this is an average field-of-view size in pixels with higher field-of-views not adding much to the terms
         self.modtf = self.mtf(self.wavel, self.r0)
         self.ht = HankelTransform(nu=0, h=0.05, N=62)
-        self.psf1d = self.ht.transform(self.mtf, self.pxm, ret_err=False)
+        self.psf1d = self.ht.transform(self.modtf, self.pxm, ret_err=False)
 
         for j in range(self.psf.shape[0]):
             for i in range(self.psf.shape[1]):
