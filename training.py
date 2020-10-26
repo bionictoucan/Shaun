@@ -9,7 +9,7 @@ from .losses import PerceptualLoss
 import os, h5py
 from .shaun import Shaun
 from time import time
-from crisPy2.utils import pt_vibrant
+from crisPy.utils import pt_vibrant
 
 class Trainer:
     """

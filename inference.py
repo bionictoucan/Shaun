@@ -1,6 +1,6 @@
 import torch
-from .shaun import Shaun
-from crisPy2.utils import segmentation, mosaic, segment_cube, mosaic_cube
+from shaun import Shaun
+from crisPy.utils import segmentation, mosaic, segment_cube, mosaic_cube
 
 class Corrector:
     """
