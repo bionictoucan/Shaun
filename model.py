@@ -32,7 +32,7 @@ class SeeingApertureMTF:
 
         self.resolution = 0.98 * self.wavel / self.r0 * 206265 # resolution of the image after being imaged through seeing
         self.diameter = int(self.resolution / self.pxScale) # diameter of PSF in pixels
-        self.psf = np.zeros(shape=(int(self.diamter), int(self.diameter)))
+        self.psf = np.zeros(shape=(int(self.diameter), int(self.diameter)))
         self.pxm = np.linspace(1.75, 880, int(880/1.75)+1) # 1.75 is the size of one pixel in metres and 880 is the size of 840 pixels in metres and the int(880/1.75)+1 is the number of pixels in the field-of-view of 840 pixels, this is an average field-of-view size in pixels with higher field-of-views not adding much to the terms
         self.modtf = self.mtf(self.wavel, self.r0)
         self.ht = HankelTransform(nu=0, h=0.05, N=62)
