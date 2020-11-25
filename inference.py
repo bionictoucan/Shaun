@@ -37,7 +37,7 @@ class Corrector:
         else:
             raise FileNotFoundError(f"No model found at {model_path}")
 
-        self.model.path()
+        self.model.eval()
 
     def mysticalman(self, img):
         """
@@ -79,7 +79,7 @@ class SpeedyCorrector(Corrector):
 
     def __init__(self, model_path, error):
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-        self.model = torch.jit.load(model_path).to(self.device)
+        self.model = torch.jit.load(model_path, map_location=self.device)
         self.error = error
 
         self.model.eval()
