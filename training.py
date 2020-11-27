@@ -5,9 +5,9 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
 import matplotlib.pyplot as plt
-from .losses import PerceptualLoss
+from losses import PerceptualLoss
 import os, h5py
-from .shaun import Shaun
+from shaun import Shaun
 from time import time
 from crispy.utils import pt_vibrant
 

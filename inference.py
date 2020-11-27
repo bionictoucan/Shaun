@@ -1,6 +1,6 @@
 import torch
 import numpy as np
-from .shaun import Shaun
+from shaun import Shaun
 from crispy.utils import segmentation, mosaic, segment_cube, mosaic_cube
 
 class Corrector:
