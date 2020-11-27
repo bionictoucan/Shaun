@@ -48,5 +48,12 @@ Please see the `example.ipynb` notebook for how to use Shaun in Python.
 ## Release
 Release 1.0.0 comes with trained models for H&alpha; and Ca II 8542&#8491; along with the traced torchscript models for faster inference but less flexibility!
 
+To get this release:
+```
+git clone https://github.com/rhero12/Shaun
+cd Shaun
+git checkout tags/v1.0
+```
+
 ## Publications
-"A Machine Learning Approach to Correcting Atmospheric Seeing in Solar Flare Observations", **J. A. Armstrong** and L. Fletcher, *in prep.*
+"A Machine Learning Approach to Correcting Atmospheric Seeing in Solar Flare Observations", **J. A. Armstrong** and L. Fletcher, MNRAS, *accepted*.
