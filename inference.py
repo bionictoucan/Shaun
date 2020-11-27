@@ -25,6 +25,12 @@ class Corrector:
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         self.model = Shaun(in_channels=in_channels, out_channels=out_channels, nef=nef).to(self.device)
 
+        # normalisation factors used during training
+        if "ca8542" in model_path.lower():
+            self.norm = 1514
+        else:
+            self.norm = 3145
+
         if os.path.isfile(model_path):
             print(f"loading model {model_path}")
             ckp = torch.load(model_path)
@@ -53,17 +59,17 @@ class Corrector:
             if img.ndim == 2:
                 img = segmentation(img, n=256)
                 img = torch.from_numpy(img).unsqueeze(1).float().to(self.device)
-                out = self.model(img).squeeze().cpu().numpy()
+                out = self.model(img / self.norm).squeeze().cpu().numpy()
 
-                return mosaic(out, img_shape, n=256)
+                return mosaic(out, img_shape, n=256) * self.norm
             elif img.ndim == 3:
                 img = segment_cube(img, n=256)
                 out = np.zeros_like(img)
                 for j, im in enumerate(np.rollaxis(img, 1)):
                     im = torch.from_numpy(im).unsqueeze(1).float().to(self.device)
-                    out[:,j] = self.model(im).squeeze().cpu().numpy()
+                    out[:,j] = self.model(im / self.norm).squeeze().cpu().numpy()
 
-                return mosaic_cube(out, img_shape, n=256)
+                return mosaic_cube(out, img_shape, n=256) * self.norm
 
 class SpeedyCorrector(Corrector):
     """
@@ -77,9 +83,14 @@ class SpeedyCorrector(Corrector):
         The error to apply to the estimates.
     """
 
-    def __init__(self, model_path, error):
+    def __init__(self, model_path, error=None):
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         self.model = torch.jit.load(model_path, map_location=self.device)
         self.error = error
+
+        if "ca8542" in model_path.lower():
+            self.norm = 1514
+        else:
+            self.norm = 3145
 
         self.model.eval()
