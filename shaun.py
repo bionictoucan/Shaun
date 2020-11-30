@@ -1,6 +1,6 @@
 from torch import tanh
 import torch.nn as nn
-from crispy.neural_network import ConvBlock, ConvTransBlock, ResBlock
+from crispy.neural_network import ConvBlock, ConvTranspBlock, ResBlock
 
 class Shaun(nn.Module):
     """
@@ -34,9 +34,9 @@ class Shaun(nn.Module):
         self.R8 = ResBlock(4*nef, 4*nef, normal="instance")
         self.R9 = ResBlock(4*nef, 4*nef, normal="instance")
 
-        self.C31 = ConvTransBlock(4*nef, 2*nef, stride=2, normal="instance")
+        self.C31 = ConvTranspBlock(4*nef, 2*nef, stride=2, normal="instance")
 
-        self.C41 = ConvTransBlock(2*nef, nef, stride=2, normal="instance")
+        self.C41 = ConvTranspBlock(2*nef, nef, stride=2, normal="instance")
 
         self.C51 = ConvBlock(nef, out_channels, kernel=7, normal="instance")
 
