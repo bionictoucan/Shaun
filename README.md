@@ -56,4 +56,4 @@ git checkout tags/v1.0
 ```
 
 ## Publications
-"A Machine Learning Approach to Correcting Atmospheric Seeing in Solar Flare Observations", **J. A. Armstrong** and L. Fletcher, MNRAS, *accepted*.
+"A Machine Learning Approach to Correcting Atmospheric Seeing in Solar Flare Observations", **J. A. Armstrong** and L. Fletcher, MNRAS, *accepted*. [arXiv](https://arxiv.org/abs/2011.12814) [Advanced Article](https://academic.oup.com/mnras/advance-article/doi/10.1093/mnras/staa3742/6019896?searchresult=1)

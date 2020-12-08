@@ -1,6 +1,7 @@
 import torch
 import numpy as np
 from shaun import Shaun
+import os
 from crispy.utils import segmentation, mosaic, segment_cube, mosaic_cube
 
 class Corrector:
@@ -33,7 +34,7 @@ class Corrector:
 
         if os.path.isfile(model_path):
             print(f"loading model {model_path}")
-            ckp = torch.load(model_path)
+            ckp = torch.load(model_path, map_location=self.device)
             self.model.load_state_dict(ckp["model_state_dict"])
             if error is None:
                 self.error = ckp["losses"]["train_l"][-1]

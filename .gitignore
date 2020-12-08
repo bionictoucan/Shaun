@@ -3,3 +3,4 @@ paper/
 .DS_Store
 *.pth
 *.pt
+*.fits
