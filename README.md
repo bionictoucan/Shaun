@@ -1,5 +1,7 @@
 # A Machine Learning Approach to Correcting Atmospheric Seeing in Solar Flare Observations
 
+[![DOI](https://zenodo.org/badge/264186546.svg)](https://zenodo.org/badge/latestdoi/264186546)
+
 The following is the repository of the Seeing AUtoeNcoder (Shaun) which is a trained fully-convolutional autoencoder with the purpose of correcting for atmospheric seeing in ground-based solar observations. Atmospheric seeing is a problem in all of ground-based astronomy and affects the resolution of observations by refracting incoming light slightly due to inhomogeneities in the density and temperature structure of the Earth's atmosphere. Adaptive optics systems are used in all modern facilities but when imaging an extended object (e.g. a layer of the Sun's atmosphere), the adaptive optics cannot correct the wavefronts over the whole field-of-view. As a result, post-processing techniques are required to correct for seeing with robust statistical methods e.g. [MOMFBD](https://link.springer.com/article/10.1007%2Fs11207-005-5782-z) or Speckle interferometry developed for this purpose.
 
 However, for solar flare observations these post-processing techniques are not the best-suited:
