@@ -14,9 +14,7 @@ Therefore, we have developed a dedicated flare seeing correction tool based on d
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=P_{\mathrm{atmos}}(\rho)=\int_{0}^{\infty}&space;J_{0}(\rho&space;v)&space;\exp&space;\left\{-0.5&space;D_{S}(\nu)\right\}&space;\nu&space;d&space;\nu" target="_blank"><img src="https://latex.codecogs.com/svg.latex?P_{\mathrm{atmos}}(\rho)=\int_{0}^{\infty}&space;J_{0}(\rho&space;v)&space;\exp&space;\left\{-0.5&space;D_{S}(\nu)\right\}&space;\nu&space;d&space;\nu" title="P_{\mathrm{atmos}}(\rho)=\int_{0}^{\infty} J_{0}(\rho v) \exp \left\{-0.5 D_{S}(\nu)\right\} \nu d \nu" /></a>
 
-$$ P_{\mathrm{atmos}}(\rho)=\int_{0}^{\infty} J_{0}(\rho v) \exp \left\{-0.5 D_{S}(\nu)\right\} \nu d \nu $$
-
-where $\nu$ is spatial frequency and $J_{0}(\rho \nu)$ is the zeroth order Bessel function.
+where &nu; is spatial frequency and J<sub>0</sub>(&rho;&nu;) is the zeroth order Bessel function.
 
 We then take imaging spectroscopy data from the Swedish 1-m Solar Telescope's (SST) CRisp Imaging SpectroPolarimeter (CRISP) instrument obtained in H&alpha; and Ca II 8542&#8491; of flares with good seeing and apply bad seeing to them. This forms the basis of our training dataset. The two active regions we use data from are AR12157 with M1.1 flare SOL20140906T17:09 (data avaiable from [F-CHROMA](https://star.pst.qub.ac.uk/wiki/doku.php/public/solarflares/start)), and AR12673 with X2.2 flare SOL20170906T09:10 and X9.3 flare SOL20170906T12:02. The model is then trained to correct for this synthetic seeing and this is then applied to data with no ground truth.
 
