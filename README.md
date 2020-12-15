@@ -12,6 +12,8 @@ However, for solar flare observations these post-processing techniques are not t
 
 Therefore, we have developed a dedicated flare seeing correction tool based on deep learning. Following [Racine 1996](adsabs.harvard.edu/full/1996PASP..108..699R) we generate synthetic seeing point-spread functions (PSFs) where the PSF is the 0th order Hankel transform of the modulation transfer function (MTF) and the MTF relies on the structure function of the atmosphere:
 
+<a href="https://www.codecogs.com/eqnedit.php?latex=P_{\mathrm{atmos}}(\rho)=\int_{0}^{\infty}&space;J_{0}(\rho&space;v)&space;\exp&space;\left\{-0.5&space;D_{S}(\nu)\right\}&space;\nu&space;d&space;\nu" target="_blank"><img src="https://latex.codecogs.com/svg.latex?P_{\mathrm{atmos}}(\rho)=\int_{0}^{\infty}&space;J_{0}(\rho&space;v)&space;\exp&space;\left\{-0.5&space;D_{S}(\nu)\right\}&space;\nu&space;d&space;\nu" title="P_{\mathrm{atmos}}(\rho)=\int_{0}^{\infty} J_{0}(\rho v) \exp \left\{-0.5 D_{S}(\nu)\right\} \nu d \nu" /></a>
+
 $$ P_{\mathrm{atmos}}(\rho)=\int_{0}^{\infty} J_{0}(\rho v) \exp \left\{-0.5 D_{S}(\nu)\right\} \nu d \nu $$
 
 where $\nu$ is spatial frequency and $J_{0}(\rho \nu)$ is the zeroth order Bessel function.
