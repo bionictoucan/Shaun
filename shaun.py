@@ -1,6 +1,6 @@
 from torch import tanh
 import torch.nn as nn
-from crispy.neural_network import ConvBlock, ConvTranspBlock, ResBlock
+from neural_network import ConvBlock, ConvTranspBlock, ResBlock
 
 class Shaun(nn.Module):
     """
